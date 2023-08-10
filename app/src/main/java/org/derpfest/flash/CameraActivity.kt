@@ -242,10 +242,18 @@ open class CameraActivity : AppCompatActivity() {
                 ) {
                     if (e2.x > e1.x) {
                         // Left to right
-                        changeCameraMode(cameraMode.previous())
+                        when (cameraMode) {
+                            CameraMode.PHOTO -> changeCameraMode(CameraMode.QR)
+                            CameraMode.VIDEO -> changeCameraMode(CameraMode.PHOTO)
+                            CameraMode.QR -> changeCameraMode(CameraMode.VIDEO)
+                        }
                     } else {
                         // Right to left
-                        changeCameraMode(cameraMode.next())
+                        when (cameraMode) {
+                            CameraMode.PHOTO -> changeCameraMode(CameraMode.VIDEO)
+                            CameraMode.VIDEO -> changeCameraMode(CameraMode.QR)
+                            CameraMode.QR -> changeCameraMode(CameraMode.PHOTO)
+                        }
                     }
                 }
                 return true
